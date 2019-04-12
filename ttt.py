@@ -5,7 +5,6 @@ class TTT:
     def __init__(self, master):
         self.mymaster = master
 
-
         #leftside buttons
         self.leftsidebuttons = Frame(self.mymaster)
         self.leftsidebuttons.pack()
@@ -49,7 +48,7 @@ class TTT:
 
         self.topright = Button(self.right, width=10, height=5, bg="white")
         self.topright.pack(side=RIGHT)
-        self.topright.bind("<Button-1>", lambda event, obj=self.topright, square=7: self.tictac(event, obj, square))
+        self.topright.bind("<Button-1>", lambda event, obj=self.topright, square=9: self.tictac(event, obj, square))
 
         self.midright = Button(self.right, width=10, height=5, bg="white")
         self.midright.pack(side=RIGHT)
@@ -57,15 +56,23 @@ class TTT:
 
         self.botright = Button(self.right, width=10, height=5, bg="white")
         self.botright.pack(side=RIGHT)
-        self.botright.bind("<Button-1>", lambda event, obj=self.botright, square=9: self.tictac(event, obj, square))
+        self.botright.bind("<Button-1>", lambda event, obj=self.botright, square=7: self.tictac(event, obj, square))
 
+        #retry the game
+        self.retry = Frame(self.mymaster)
+        self.retry.pack()
 
+        self.retryb = Button(self.retry, width=30, height=2, bg="red", text="Replay?",
+                             command=self.retrygame)
+        self.retryb.pack()
+
+    endgame = 0
     turn = 0
     redsquares = []
     bluesquares = []
 
     def tictac(self, event, obj, square):
-        if obj["background"] == "white":
+        if obj["background"] == "white" and self.endgame == 0:
             if self.turn == 0:
                 obj["background"] = "red"
                 self.turn = 1
@@ -76,11 +83,24 @@ class TTT:
                 self.bluesquares.append(square)
             print("Red", self.redsquares)
             print("Blue", self.bluesquares)
+        if len(self.redsquares) >= 3 and self.endgame == 0:
+            value = 0
+            for i in range(len(self.redsquares)):
+                value = value + self.redsquares[i]
+            if value == 6 or value == 15 or value == 12 or value == 18 or value == 25:
+                print("Red wins")
+                self.endgame = 1
+        if len(self.bluesquares) >= 3 and self.endgame == 0:
+            value = 0
+            for i in range(len(self.bluesquares)):
+                value = value + self.bluesquares[i]
+            if value == 6 or value == 15 or value == 12 or value == 18 or value == 25:
+                print("blue wins")
+                self.endgame = 1
 
-
-
-
-
+    def retrygame(self):
+        if self.endgame == 1 or len(self.redsquares) + len(self.bluesquares) == 9:
+            self.mymaster.destroy()
 
 
 def main():
