@@ -66,10 +66,10 @@ class TTT:
                              command=self.retrygame)
         self.retryb.pack()
 
-    endgame = 0
-    turn = 0
-    redsquares = []
-    bluesquares = []
+        self.endgame = 0
+        self.turn = 0
+        self.redsquares = []
+        self.bluesquares = []
 
     def tictac(self, event, obj, square):
         if obj["background"] == "white" and self.endgame == 0:
@@ -87,20 +87,25 @@ class TTT:
             value = 0
             for i in range(len(self.redsquares)):
                 value = value + self.redsquares[i]
-            if value == 6 or value == 15 or value == 12 or value == 18 or value == 25:
+            if value == 6 or value == 15 or (value == 18 and 4 not in self.redsquares) or value == 24 or \
+                    (value == 12 and 8 not in self.redsquares) or value == 13 or value == 29:
                 print("Red wins")
                 self.endgame = 1
         if len(self.bluesquares) >= 3 and self.endgame == 0:
             value = 0
             for i in range(len(self.bluesquares)):
                 value = value + self.bluesquares[i]
-            if value == 6 or value == 15 or value == 12 or value == 18 or value == 25:
+            if value == 6 or value == 15 or (value == 12 and 8 not in self.redsquares) or \
+                    (value == 18 and 4 not in self.redsquares) or value == 24 or value == 13 or value == 29:
                 print("blue wins")
                 self.endgame = 1
 
     def retrygame(self):
         if self.endgame == 1 or len(self.redsquares) + len(self.bluesquares) == 9:
+            self.redsquares = []
+            self.bluesquares = []
             self.mymaster.destroy()
+            main()
 
 
 def main():
