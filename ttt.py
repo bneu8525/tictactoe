@@ -87,17 +87,20 @@ class TTT:
             value = 0
             for i in range(len(self.redsquares)):
                 value = value + self.redsquares[i]
-            if value == 6 or value == 15 or (value == 18 and 4 not in self.redsquares) or value == 24 or \
-                    (value == 12 and 8 not in self.redsquares) or (value == 13 and 7 not in self.redsquares) or value == 29:
+            if value == 6 or value == 15 or (value == 18 and 4 not in self.redsquares and 7 not in self.redsquares) or value == 24 or \
+                    (value == 12 and 8 not in self.redsquares and 5 not in self.redsquares) or \
+                    (value == 13 and 7 not in self.redsquares and 1 not in self.redsquares) or value == 29 or \
+                    (value == 21 and 9 not in self.redsquares):
                 print("Red wins")
                 self.endgame = 1
         if len(self.bluesquares) >= 3 and self.endgame == 0:
             value = 0
             for i in range(len(self.bluesquares)):
                 value = value + self.bluesquares[i]
-            if value == 6 or value == 15 or (value == 12 and 8 not in self.bluesquares) or \
-                    (value == 18 and 4 not in self.bluesquares) or value == 24 or \
-                    (value == 13 and 7 not in self.bluesquares) or value == 29:
+            if value == 6 or value == 15 or (value == 12 and 8 not in self.bluesquares and 5 not in self.bluesquares) \
+                    or (value == 18 and 4 not in self.bluesquares and 7 not in self.bluesquares) or value == 24 or \
+                    (value == 13 and 7 not in self.bluesquares and 1 not in self.bluesquares) or value == 29 or \
+                    (value == 21 and 9 not in self.bluesquares):
                 print("blue wins")
                 self.endgame = 1
 
