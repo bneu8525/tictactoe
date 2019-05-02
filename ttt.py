@@ -5,6 +5,7 @@ class TTT:
     def __init__(self, master):
         self.mymaster = master
 
+        self.winsred =
         #leftside buttons
         self.leftsidebuttons = Frame(self.mymaster)
         self.leftsidebuttons.pack()
@@ -71,6 +72,25 @@ class TTT:
         self.redsquares = []
         self.bluesquares = []
 
+        #wins
+        self.winsreds = Frame(self.mymaster)
+        self.winsreds.pack(side=LEFT)
+
+        self.winsblues = Frame(self.mymaster)
+        self.winsblues.pack(side=RIGHT)
+
+        self.winsr = Label(self.winsreds, text='Wins Red')
+        self.winsr.pack(side=LEFT)
+
+        self.winsb = Label(self.winsblues, text='Wins Blue')
+        self.winsb.pack(side=RIGHT)
+
+        self.winsr2 = Label(self.winsreds, text=self.winsred)
+        self.winsr2.pack(side=LEFT)
+
+        self.winsb2 = Label(self.winsblues, text=self.winsblue)
+        self.winsb2.pack()
+
     def tictac(self, event, obj, square):
         if obj["background"] == "white" and self.endgame == 0:
             if self.turn == 0:
@@ -92,6 +112,7 @@ class TTT:
                     (value == 13 and 7 not in self.redsquares and 1 not in self.redsquares) or value == 29 or \
                     (value == 21 and 9 not in self.redsquares):
                 print("Red wins")
+                self.winsred = self.winsred + 1
                 self.endgame = 1
         if len(self.bluesquares) >= 3 and self.endgame == 0:
             value = 0
@@ -102,6 +123,7 @@ class TTT:
                     (value == 13 and 7 not in self.bluesquares and 1 not in self.bluesquares) or value == 29 or \
                     (value == 21 and 9 not in self.bluesquares):
                 print("blue wins")
+                self.winsblue = self.winsblue + 1
                 self.endgame = 1
 
     def retrygame(self):
